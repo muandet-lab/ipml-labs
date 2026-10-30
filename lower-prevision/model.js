@@ -1,0 +1,1 @@
+(function(root){function expectation(g,p){return p*g[0]+(1-p)*g[1]}function bounds(g,a,b){const ea=expectation(g,a),eb=expectation(g,b);return {lower:Math.min(ea,eb),upper:Math.max(ea,eb),argmin:ea<=eb?a:b,argmax:ea<=eb?b:a}}root.PrevisionMath={expectation,bounds}})(typeof window==='undefined'?globalThis:window);
