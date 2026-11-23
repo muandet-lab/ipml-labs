@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore Dempster–Shafer mass assignments, belief, plausibility, and evidence combination.">
+  <title>Belief Function Theory Lab · IPML</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="model.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="top">
+    <a href="../">IPML Labs</a>
+    <button type="button" id="reset">Reset lab</button>
+  </header>
+  <main>
+    <div class="intro">
+      <h1>Belief Function<br>Theory Lab</h1>
+      <p>Give evidence to a set of outcomes, then see how much it supports an event and how much leaves it possible.</p>
+      <div class="frame" aria-label="Frame of discernment: A, B, C">Ω = {A, B, C}</div>
+    </div>
+    <nav aria-label="Lab sections">
+      <a href="#masses">Mass assignments</a>
+      <a href="#bounds">Event bounds</a>
+      <a href="#fusion">Combine evidence</a>
+    </nav>
+    <section id="masses" class="section">
+      <div class="section-heading">
+        <h2>Assign evidence to sets</h2>
+        <p>Exactly one outcome is true. Mass on {A, B} supports the claim that one of those two is true, leaving the choice between them open.</p>
+      </div>
+      <div class="presets" aria-label="Evidence examples">
+        <button type="button" data-preset="overlap">Overlapping evidence</button>
+        <button type="button" data-preset="ignorance">Complete ignorance</button>
+        <button type="button" data-preset="probability">Precise probability</button>
+        <button type="button" data-preset="conflict">Total conflict</button>
+      </div>
+      <p id="scenario" class="note" role="status"></p>
+      <p id="mass-help">Edit either source. Each has a 100% budget. Any unassigned mass goes to Ω.</p>
+      <div id="sources" class="columns"></div>
+    </section>
+
+    <section id="bounds" class="section">
+      <div class="section-heading">
+        <h2>Explore an event</h2>
+        <p>Belief sums mass on sets contained in the event. Plausibility sums mass on sets that intersect it. These give tight lower and upper probabilities over all ways of distributing each set’s mass among its members.</p>
+      </div>
+      <div class="selectors">
+        <label>Event E <select id="event"></select></label>
+        <label>Evidence <select id="evidence">
+          <option value="first">Source 1</option>
+          <option value="second">Source 2</option>
+          <option value="combined">Combined</option>
+        </select></label>
+      </div>
+      <div id="results" class="columns">
+        <div class="card">
+          <div id="event-result" aria-live="polite"></div>
+          <div id="interval" class="interval" aria-hidden="true"><div></div></div>
+          <div class="axis" aria-hidden="true"><span>0%</span><span>50%</span><span>100%</span></div>
+          <p id="decomposition"></p>
+        </div>
+        <div class="card">
+          <table>
+            <caption>Bounds for every event</caption>
+            <thead><tr><th scope="col">Event</th><th scope="col">Belief</th><th scope="col">Plausibility</th></tr></thead>
+            <tbody id="event-table"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="fusion" class="section">
+      <div class="section-heading">
+        <h2>Combine evidence</h2>
+        <p>Dempster’s rule models independent bodies of evidence on the same frame. Multiply each pair of masses and assign the product to the intersection. Products on the empty set form conflict K. Divide the remaining masses by 1 − K.</p>
+      </div>
+      <div class="columns">
+        <div class="card">
+          <h3>Conflict between sources</h3>
+          <p id="conflict-result" class="conflict" aria-live="polite"></p>
+          <p id="conflict-explanation"></p>
+          <button type="button" id="show-combined">Explore combined bounds</button>
+        </div>
+        <div class="card">
+          <table>
+            <caption>Combined mass assignment</caption>
+            <thead><tr><th scope="col">Set</th><th scope="col">Before normalization</th><th scope="col">Combined</th></tr></thead>
+            <tbody id="fusion-table"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="section exercises">
+      <h2>Try these experiments</h2>
+      <ol>
+        <li>In Overlapping evidence, select {B} and switch from Source 1 to Combined. Which pair of sets creates new belief in {B}?</li>
+        <li>Compare Complete ignorance and Precise probability for {A}. In which case do belief and plausibility agree?</li>
+        <li>In Total conflict, lower either source’s 100% assignment and watch what happens to the combined mass.</li>
+      </ol>
+      <p><a href="https://glennshafer.com/assets/downloads/articles/article29_dempster.pdf">Further reading from Shafer and Logan on Dempster’s rule</a></p>
+    </section>
+  </main>
+</body>
+</html>
